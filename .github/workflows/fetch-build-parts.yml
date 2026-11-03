@@ -43,12 +43,25 @@ jobs:
           head -c 8 Build/WebBuild.wasm.part-aa | xxd | head -1
           echo "total: $(du -ch Build/*.part-* | tail -1)"
 
+      - name: Record response headers
+        env:
+          BASE: https://truffled.lol/f/WxUUCwMfShYbBxsCFUMMChAXDUgOGAgI/Build
+        run: |
+          set -euo pipefail
+          {
+            echo "# HEAD responses from $BASE"
+            for f in WebBuild.framework.js WebBuild.data.part-aa WebBuild.wasm.part-aa; do
+              echo "--- $f ---"
+              curl -sSI -A "Mozilla/5.0" "$BASE/$f" || true
+            done
+          } > download-info.txt
+
       - name: Commit parts to branch
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Build/WebBuild.*.part-*
+          git add Build/WebBuild.*.part-* download-info.txt
           if git diff --cached --quiet; then
             echo "No new parts to commit"
           else
