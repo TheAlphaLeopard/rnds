@@ -52,6 +52,8 @@
         <script>
             (() => {
                 const buildUrl = 'Build';
+                // Framework is hosted off-site; the data/wasm parts are bundled in Build/.
+                const remoteFrameworkUrl = 'https://truffled.lol/f/WxUUCwMfShYbBxsCFUMMChAXDUgOGAgI/Build/WebBuild.framework.js';
                 const canvas = document.getElementById('unity-canvas');
                 const note = document.getElementById('note');
                 const blobUrls = [];
@@ -85,10 +87,10 @@
                             mergedBlob('WebBuild.wasm', ['aa', 'ab', 'ac', 'ad', 'ae'], 'application/wasm'),
                             loader
                         ]);
-                        await createUnityInstance(canvas, {
+                        const config = {
                             dataUrl,
                             codeUrl,
-                            frameworkUrl: `${buildUrl}/WebBuild.framework.js`,
+                            frameworkUrl: remoteFrameworkUrl,
                             streamingAssetsUrl: 'StreamingAssets',
                             companyName: 'Landfall Games',
                             productName: 'ROUNDS',
@@ -97,7 +99,24 @@
                                 if (type === 'error')
                                     note.textContent = message;
                             }
-                        });
+                        };
+
+                        // truffled.lol does not send Access-Control-Allow-Origin, so the
+                        // loader's cross-origin fetch of frameworkUrl is blocked unless the
+                        // page itself is served from that host. Fall back to the framework
+                        // bundled in this repo (main.js) in that case.
+                        try {
+                            const probe = await fetch(config.frameworkUrl);
+                            if (!probe.ok)
+                                throw new Error(`HTTP ${probe.status}`);
+                            if (probe.body)
+                                probe.body.cancel();
+                        } catch (err) {
+                            console.warn(`Couldn't use ${remoteFrameworkUrl}, falling back to main.js`, err);
+                            config.frameworkUrl = 'main.js';
+                        }
+
+                        await createUnityInstance(canvas, config);
                     } catch (err) {
                         console.error(err);
                         note.textContent = (err && err.message ? err.message : "couldn't load the game") + ', refresh to try again';
