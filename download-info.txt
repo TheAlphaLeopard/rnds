@@ -1,0 +1,61 @@
+# HEAD responses from https://truffled.lol/f/WxUUCwMfShYbBxsCFUMMChAXDUgOGAgI/Build
+--- WebBuild.framework.js ---
+HTTP/2 200 
+accept-ranges: bytes
+alt-svc: h3=":443"; ma=2592000
+cache-control: public, max-age=300, must-revalidate
+content-type: application/javascript; charset=UTF-8
+cross-origin-embedder-policy: credentialless
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: cross-origin
+date: Tue, 03 Nov 2026 02:47:43 GMT
+etag: W/"7cd09-1a138579f88"
+last-modified: Wed, 14 Oct 2026 02:57:09 GMT
+permissions-policy: cross-origin-isolated=(self)
+referrer-policy: strict-origin-when-cross-origin
+via: 1.1 Caddy
+x-content-type-options: nosniff
+x-permitted-cross-domain-policies: none
+x-powered-by: Express
+content-length: 511241
+
+--- WebBuild.data.part-aa ---
+HTTP/2 200 
+accept-ranges: bytes
+alt-svc: h3=":443"; ma=2592000
+cache-control: public, max-age=0
+content-type: application/octet-stream
+cross-origin-embedder-policy: credentialless
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: cross-origin
+date: Tue, 03 Nov 2026 02:47:43 GMT
+etag: W/"1400000-1a138579f88"
+last-modified: Wed, 14 Oct 2026 02:57:09 GMT
+permissions-policy: cross-origin-isolated=(self)
+referrer-policy: strict-origin-when-cross-origin
+via: 1.1 Caddy
+x-content-type-options: nosniff
+x-permitted-cross-domain-policies: none
+x-powered-by: Express
+content-length: 20971520
+
+--- WebBuild.wasm.part-aa ---
+HTTP/2 200 
+accept-ranges: bytes
+alt-svc: h3=":443"; ma=2592000
+cache-control: public, max-age=0
+content-type: application/octet-stream
+cross-origin-embedder-policy: credentialless
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: cross-origin
+date: Tue, 03 Nov 2026 02:47:43 GMT
+etag: W/"1400000-1a138579f88"
+last-modified: Wed, 14 Oct 2026 02:57:09 GMT
+permissions-policy: cross-origin-isolated=(self)
+referrer-policy: strict-origin-when-cross-origin
+via: 1.1 Caddy
+x-content-type-options: nosniff
+x-permitted-cross-domain-policies: none
+x-powered-by: Express
+content-length: 20971520
+
